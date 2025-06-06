@@ -1,13 +1,34 @@
 kind: BotDefinition
 entity:
-  schemaName: cr6bd_projetoDioCopilot
-  cdsBotId: b9575c3f-fc3c-f011-8779-6045bd38a755
+  schemaName: cr6bd_estudandoCriandoAgenteDaDio10
+  cdsBotId: 0cbb8046-5c42-f011-8779-002248e0b401
   accessControlPolicy: ChatbotReaders
   authenticationMode: Integrated
   authenticationTrigger: Always
   configuration:
-    gPTSettings:
-      defaultSchemaName: cr6bd_projetoDioCopilot.gpt.default
+    settings:
+      default-2.1.0:
+        content:
+          conversationStarters:
+          description: |-
+            Criando um Copilot com um fluxo de conversa personalizado no Microsoft Copilot Studio.
+            Aprenda a iniciar um copiloto do zero, customizar um tópico,
+            personalizar mensagens de erro e ajustar a qualidade das respostas utilizando GenAI. Ao final,
+            você terá um copiloto otimizado para oferecer interações mais precisas e eficientes.
+          displayName: Estudando Criando Agente da Dio1.0
+          instructions: |-
+            você e um agente chamado " Estudando Criando Agente da Dio" e vai agir de tom formal e em português,
+            para retorna informações relevantes da documentação oficial da Microsoft o Microsoft Copilot Studio
+            Ao retorna uma resposta para pergunta do usuário  você dever considerar:
+            - Buscar a melhor resposta da documentação
+            - Retorna a resposta apropriada, amigável e   de tom formal  
+            - Retorna uma ou mais citações da documentação  
+
+        spec:
+          connectors:
+          knowledgeSources:
+            publicSites:
+            sharepointSites:
 
     aISettings:
       useModelKnowledge: true
@@ -19,182 +40,26 @@ entity:
 
 components:
   - kind: DialogComponent
-    version: 16400071
+    version: 16586355
     managedProperties:
       isCustomizable: false
       solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
 
     auditInfo:
-      createdTimeUtc: 2025-05-30T02:17:42.0000000Z
-      modifiedTimeUtc: 2025-05-30T02:17:42.0000000Z
-      createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
-      modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
-
-    displayName: Recomeçar
-    id: 095450dd-43ca-4b6e-bb24-3c10371f3e58
-    parentBotId: b9575c3f-fc3c-f011-8779-6045bd38a755
-    shareContext: {}
-    state: Active
-    status: Active
-    publisherUniqueName: DefaultPublisherorgc914032e
-    schemaName: cr6bd_projetoDioCopilot.topic.StartOver
-    dialog:
-      beginDialog:
-        kind: OnRecognizedIntent
-        id: main
-        intent:
-          displayName: Recomeçar
-          includeInOnSelectIntent: false
-          triggerQueries:
-            - vamos começar novamente
-            - vamos começar de novo
-            - recomeçar
-            - começar novamente
-            - reiniciar
-
-        actions:
-          - kind: Question
-            id: question_zguoVV
-            alwaysPrompt: false
-            variable: init:Topic.Confirm
-            prompt: Tem certeza de que deseja reiniciar a conversa?
-            entity: BooleanPrebuiltEntity
-
-          - kind: ConditionGroup
-            id: conditionGroup_lvx2zV
-            conditions:
-              - id: conditionItem_sVQtHa
-                condition: =Topic.Confirm = true
-                actions:
-                  - kind: BeginDialog
-                    id: 0YKYsy
-                    dialog: cr6bd_projetoDioCopilot.topic.ResetConversation
-
-            elseActions:
-              - kind: SendActivity
-                id: sendMessage_lk2CyQ
-                activity: OK. Vamos continuar.
-
-  - kind: DialogComponent
-    version: 16400134
-    managedProperties:
-      isCustomizable: false
-      solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
-
-    auditInfo:
-      createdTimeUtc: 2025-05-30T02:17:47.0000000Z
-      modifiedTimeUtc: 2025-05-30T02:17:47.0000000Z
-      createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
-      modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
-
-    displayName: Fim da conversa
-    id: 0b3a40eb-fb98-4fe9-baf1-0ac5ac31661a
-    parentBotId: b9575c3f-fc3c-f011-8779-6045bd38a755
-    description: |-
-      Esse tópico do sistema é disparado apenas por uma ação de redirecionamento,
-      e guia o usuário para classificar a conversa com o agente.
-    shareContext: {}
-    state: Active
-    status: Active
-    publisherUniqueName: DefaultPublisherorgc914032e
-    schemaName: cr6bd_projetoDioCopilot.topic.EndofConversation
-    dialog:
-      startBehavior: CancelOtherTopics
-      beginDialog:
-        kind: OnSystemRedirect
-        id: main
-        actions:
-          - kind: Question
-            id: 41d42054-d4cb-4e90-b922-2b16b37fe379
-            conversationOutcome: ResolvedImplied
-            alwaysPrompt: true
-            variable: init:Topic.SurveyResponse
-            prompt: Isso esclareceu sua dúvida?
-            entity: BooleanPrebuiltEntity
-
-          - kind: ConditionGroup
-            id: condition-0
-            conditions:
-              - id: condition-0-item-0
-                condition: =Topic.SurveyResponse = true
-                actions:
-                  - kind: CSATQuestion
-                    id: csat_1
-                    conversationOutcome: ResolvedConfirmed
-
-                  - kind: SendActivity
-                    id: sendMessage_8r29O0
-                    activity: Obrigado por seus comentários.
-
-                  - kind: Question
-                    id: question_1
-                    alwaysPrompt: true
-                    variable: init:Topic.Continue
-                    prompt: Posso ajudar com algo mais?
-                    entity: BooleanPrebuiltEntity
-
-                  - kind: ConditionGroup
-                    id: condition-1
-                    conditions:
-                      - id: condition-1-item-0
-                        condition: =Topic.Continue = true
-                        actions:
-                          - kind: SendActivity
-                            id: sendMessage_4eOE6h
-                            activity: Pode falar. Estou escutando.
-
-                    elseActions:
-                      - kind: SendActivity
-                        id: yHBz55
-                        activity: OK. Até logo.
-
-                      - kind: EndConversation
-                        id: jh1GMT
-
-            elseActions:
-              - kind: Question
-                id: PM68ot
-                alwaysPrompt: true
-                variable: init:Topic.TryAgain
-                prompt: Desculpe, não posso ajudar melhor do que isso. Gostaria de tentar novamente?
-                entity: BooleanPrebuiltEntity
-
-              - kind: ConditionGroup
-                id: KNxYBf
-                conditions:
-                  - id: DPveFP
-                    condition: =Topic.TryAgain = false
-                    actions:
-                      - kind: BeginDialog
-                        id: cngqi4
-                        dialog: cr6bd_projetoDioCopilot.topic.Escalate
-
-                elseActions:
-                  - kind: SendActivity
-                    id: GrVHEW
-                    activity: Pode falar. Estou escutando.
-
-  - kind: DialogComponent
-    version: 16400109
-    managedProperties:
-      isCustomizable: false
-      solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
-
-    auditInfo:
-      createdTimeUtc: 2025-05-30T02:17:46.0000000Z
-      modifiedTimeUtc: 2025-05-30T02:17:46.0000000Z
+      createdTimeUtc: 2025-06-05T22:27:59.0000000Z
+      modifiedTimeUtc: 2025-06-05T22:27:59.0000000Z
       createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
       modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
 
     displayName: Tchau
-    id: 10b7aad9-2e82-4df3-877d-7b166013b1e6
-    parentBotId: b9575c3f-fc3c-f011-8779-6045bd38a755
+    id: 19850c9f-b01f-4920-945d-2e4cb845412c
+    parentBotId: 0cbb8046-5c42-f011-8779-002248e0b401
     description: Esse tópico é disparado quando o usuário se despede. Por padrão, ele não termina a conversa. Se você quiser terminar a conversa quando o usuário se despedir, adicione uma ação de "Término da Conversa" a esse tópico ou redirecione para o tópico do sistema "Término da Conversa".
     shareContext: {}
     state: Active
     status: Active
     publisherUniqueName: DefaultPublisherorgc914032e
-    schemaName: cr6bd_projetoDioCopilot.topic.Goodbye
+    schemaName: cr6bd_estudandoCriandoAgenteDaDio10.topic.Goodbye
     dialog:
       startBehavior: CancelOtherTopics
       beginDialog:
@@ -231,7 +96,7 @@ components:
                 actions:
                   - kind: BeginDialog
                     id: dn94DC
-                    dialog: cr6bd_projetoDioCopilot.topic.EndofConversation
+                    dialog: cr6bd_estudandoCriandoAgenteDaDio10.topic.EndofConversation
 
               - id: condition_DGc1Wy-item-1
                 condition: =Topic.EndConversation = false
@@ -241,126 +106,20 @@ components:
                     activity: Pode falar. Estou escutando.
 
   - kind: DialogComponent
-    version: 16400104
+    version: 16586374
     managedProperties:
       isCustomizable: false
       solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
 
     auditInfo:
-      createdTimeUtc: 2025-05-30T02:17:46.0000000Z
-      modifiedTimeUtc: 2025-05-30T02:17:46.0000000Z
-      createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
-      modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
-
-    displayName: Fallback
-    id: 12b93166-2796-49cd-9a60-1840a7e1cc5c
-    parentBotId: b9575c3f-fc3c-f011-8779-6045bd38a755
-    description: Esse tópico do sistema é disparado quando o enunciado do usuário não corresponde aos tópicos existentes.
-    shareContext: {}
-    state: Active
-    status: Active
-    publisherUniqueName: DefaultPublisherorgc914032e
-    schemaName: cr6bd_projetoDioCopilot.topic.Fallback
-    dialog:
-      beginDialog:
-        kind: OnUnknownIntent
-        id: main
-        actions:
-          - kind: ConditionGroup
-            id: conditionGroup_LktzXw
-            conditions:
-              - id: conditionItem_tlGIVo
-                condition: =System.FallbackCount < 3
-                actions:
-                  - kind: SendActivity
-                    id: sendMessage_QZreqo
-                    activity: Não sei como ajudar. Você pode tentar reformular a pergunta?
-
-            elseActions:
-              - kind: BeginDialog
-                id: 5aXj5M
-                dialog: cr6bd_projetoDioCopilot.topic.Escalate
-
-  - kind: DialogComponent
-    version: 16400114
-    managedProperties:
-      isCustomizable: false
-      solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
-
-    auditInfo:
-      createdTimeUtc: 2025-05-30T02:17:46.0000000Z
-      modifiedTimeUtc: 2025-05-30T02:17:46.0000000Z
-      createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
-      modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
-
-    displayName: Vários tópicos correspondentes
-    id: 243d2bb4-ef81-457c-b874-69ec99d8e72d
-    parentBotId: b9575c3f-fc3c-f011-8779-6045bd38a755
-    description: Esse tópico do sistema é desencadeado quando o agente correlaciona vários Tópicos com a mensagem de entrada e precisa esclarecer qual deve ser disparado.
-    shareContext: {}
-    state: Active
-    status: Active
-    publisherUniqueName: DefaultPublisherorgc914032e
-    schemaName: cr6bd_projetoDioCopilot.topic.MultipleTopicsMatched
-    dialog:
-      beginDialog:
-        kind: OnSelectIntent
-        id: main
-        triggerBehavior: Always
-        actions:
-          - kind: SetVariable
-            id: setVariable_M6434i
-            variable: init:Topic.IntentOptions
-            value: =System.Recognizer.IntentOptions
-
-          - kind: SetTextVariable
-            id: setTextVariable_0
-            variable: Topic.NoneOfTheseDisplayName
-            value: Nenhuma dessas opções
-
-          - kind: EditTable
-            id: sendMessage_g5Ls09
-            changeType: Add
-            itemsVariable: Topic.IntentOptions
-            value: "={ DisplayName: Topic.NoneOfTheseDisplayName, TopicId: \"NoTopic\", TriggerId: \"NoTrigger\", Score: 1.0 }"
-
-          - kind: Question
-            id: question_zf2HhP
-            interruptionPolicy:
-              allowInterruption: false
-
-            alwaysPrompt: true
-            variable: System.Recognizer.SelectedIntent
-            prompt: "Para esclarecer, você quis dizer:"
-            entity:
-              kind: DynamicClosedListEntity
-              items: =Topic.IntentOptions
-
-          - kind: ConditionGroup
-            id: conditionGroup_60PuXb
-            conditions:
-              - id: conditionItem_rs7GgM
-                condition: =System.Recognizer.SelectedIntent.TopicId = "NoTopic"
-                actions:
-                  - kind: ReplaceDialog
-                    id: YZXRDb
-                    dialog: cr6bd_projetoDioCopilot.topic.Fallback
-
-  - kind: DialogComponent
-    version: 16400129
-    managedProperties:
-      isCustomizable: false
-      solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
-
-    auditInfo:
-      createdTimeUtc: 2025-05-30T02:17:47.0000000Z
-      modifiedTimeUtc: 2025-05-30T02:17:47.0000000Z
+      createdTimeUtc: 2025-06-05T22:27:59.0000000Z
+      modifiedTimeUtc: 2025-06-05T22:27:59.0000000Z
       createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
       modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
 
     displayName: Escalonar
-    id: 4ca61b36-877b-40d3-bc88-a4a28c5596f6
-    parentBotId: b9575c3f-fc3c-f011-8779-6045bd38a755
+    id: 21d0e0c6-64cf-4d03-b751-c097bb3ad345
+    parentBotId: 0cbb8046-5c42-f011-8779-002248e0b401
     description: |-
       Esse tópico do sistema é disparado quando o usuário indica que gostaria de conversar com um represente.
       Você pode configurar como o agente tratará os cenários de entrega humana nas configurações do agente.
@@ -369,7 +128,7 @@ components:
     state: Active
     status: Active
     publisherUniqueName: DefaultPublisherorgc914032e
-    schemaName: cr6bd_projetoDioCopilot.topic.Escalate
+    schemaName: cr6bd_estudandoCriandoAgenteDaDio10.topic.Escalate
     dialog:
       startBehavior: CancelOtherTopics
       beginDialog:
@@ -442,25 +201,246 @@ components:
               Posso ajudar em algo mais?
 
   - kind: DialogComponent
-    version: 16400124
+    version: 16586379
     managedProperties:
       isCustomizable: false
       solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
 
     auditInfo:
-      createdTimeUtc: 2025-05-30T02:17:47.0000000Z
-      modifiedTimeUtc: 2025-05-30T02:17:47.0000000Z
+      createdTimeUtc: 2025-06-05T22:27:59.0000000Z
+      modifiedTimeUtc: 2025-06-05T22:27:59.0000000Z
       createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
       modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
 
-    displayName: Redefinir conversa
-    id: 74382fbe-ee85-495e-bbfa-e5b29ed6318d
-    parentBotId: b9575c3f-fc3c-f011-8779-6045bd38a755
+    displayName: Fim da conversa
+    id: 34e76945-bff1-44f4-bd37-e9ca46f09fa4
+    parentBotId: 0cbb8046-5c42-f011-8779-002248e0b401
+    description: |-
+      Esse tópico do sistema é disparado apenas por uma ação de redirecionamento,
+      e guia o usuário para classificar a conversa com o agente.
     shareContext: {}
     state: Active
     status: Active
     publisherUniqueName: DefaultPublisherorgc914032e
-    schemaName: cr6bd_projetoDioCopilot.topic.ResetConversation
+    schemaName: cr6bd_estudandoCriandoAgenteDaDio10.topic.EndofConversation
+    dialog:
+      startBehavior: CancelOtherTopics
+      beginDialog:
+        kind: OnSystemRedirect
+        id: main
+        actions:
+          - kind: Question
+            id: 41d42054-d4cb-4e90-b922-2b16b37fe379
+            conversationOutcome: ResolvedImplied
+            alwaysPrompt: true
+            variable: init:Topic.SurveyResponse
+            prompt: Isso esclareceu sua dúvida?
+            entity: BooleanPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: condition-0
+            conditions:
+              - id: condition-0-item-0
+                condition: =Topic.SurveyResponse = true
+                actions:
+                  - kind: CSATQuestion
+                    id: csat_1
+                    conversationOutcome: ResolvedConfirmed
+
+                  - kind: SendActivity
+                    id: sendMessage_8r29O0
+                    activity: Obrigado por seus comentários.
+
+                  - kind: Question
+                    id: question_1
+                    alwaysPrompt: true
+                    variable: init:Topic.Continue
+                    prompt: Posso ajudar com algo mais?
+                    entity: BooleanPrebuiltEntity
+
+                  - kind: ConditionGroup
+                    id: condition-1
+                    conditions:
+                      - id: condition-1-item-0
+                        condition: =Topic.Continue = true
+                        actions:
+                          - kind: SendActivity
+                            id: sendMessage_4eOE6h
+                            activity: Pode falar. Estou escutando.
+
+                    elseActions:
+                      - kind: SendActivity
+                        id: yHBz55
+                        activity: OK. Até logo.
+
+                      - kind: EndConversation
+                        id: jh1GMT
+
+            elseActions:
+              - kind: Question
+                id: PM68ot
+                alwaysPrompt: true
+                variable: init:Topic.TryAgain
+                prompt: Desculpe, não posso ajudar melhor do que isso. Gostaria de tentar novamente?
+                entity: BooleanPrebuiltEntity
+
+              - kind: ConditionGroup
+                id: KNxYBf
+                conditions:
+                  - id: DPveFP
+                    condition: =Topic.TryAgain = false
+                    actions:
+                      - kind: BeginDialog
+                        id: cngqi4
+                        dialog: cr6bd_estudandoCriandoAgenteDaDio10.topic.Escalate
+
+                elseActions:
+                  - kind: SendActivity
+                    id: GrVHEW
+                    activity: Pode falar. Estou escutando.
+
+  - kind: DialogComponent
+    version: 16586533
+    managedProperties:
+      isCustomizable: false
+      solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
+
+    auditInfo:
+      createdTimeUtc: 2025-06-05T22:27:58.0000000Z
+      modifiedTimeUtc: 2025-06-05T23:24:50.0000000Z
+      createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
+      modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
+
+    displayName: Fallback
+    id: 652b3663-bb71-4d40-9021-85000620d89c
+    parentBotId: 0cbb8046-5c42-f011-8779-002248e0b401
+    description: Esse tópico do sistema é disparado quando o enunciado do usuário não corresponde aos tópicos existentes.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgc914032e
+    schemaName: cr6bd_estudandoCriandoAgenteDaDio10.topic.Fallback
+    dialog:
+      beginDialog:
+        kind: OnUnknownIntent
+        id: main
+        actions:
+          - kind: ConditionGroup
+            id: conditionGroup_LktzXw
+            conditions:
+              - id: conditionItem_tlGIVo
+                condition: =System.FallbackCount < 3
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_QZreqo
+                    activity: Não sei como ajudar. Você pode tentar reformular a pergunta?
+
+            elseActions:
+              - kind: BeginDialog
+                id: 5aXj5M
+                dialog: cr6bd_estudandoCriandoAgenteDaDio10.topic.Escalate
+
+  - kind: DialogComponent
+    version: 16586365
+    managedProperties:
+      isCustomizable: false
+      solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
+
+    auditInfo:
+      createdTimeUtc: 2025-06-05T22:27:59.0000000Z
+      modifiedTimeUtc: 2025-06-05T22:27:59.0000000Z
+      createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
+      modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
+
+    displayName: Saudação
+    id: 6c257024-0d5b-433d-8e2c-a0649b697925
+    parentBotId: 0cbb8046-5c42-f011-8779-002248e0b401
+    description: Esse tópico é disparado quando o usuário cumprimenta o agente.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgc914032e
+    schemaName: cr6bd_estudandoCriandoAgenteDaDio10.topic.Greeting
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          displayName: Saudação
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - Boa tarde
+            - Bom dia
+            - Olá
+            - Ei
+            - Oi
+
+        actions:
+          - kind: SendActivity
+            id: sendMessage_abmysR
+            activity:
+              text:
+                - Olá, como posso ajudar hoje?
+              speak:
+                - Olá, <break strength="medium" />. Como posso ajudar?
+
+          - kind: CancelAllDialogs
+            id: cancelAllDialogs_01At22
+
+  - kind: DialogComponent
+    version: 16586483
+    managedProperties:
+      isCustomizable: false
+      solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
+
+    auditInfo:
+      createdTimeUtc: 2025-06-05T22:28:00.0000000Z
+      modifiedTimeUtc: 2025-06-05T22:34:33.0000000Z
+      createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
+      modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
+
+    displayName: Início da conversa
+    id: 73231bdd-038b-4286-b656-2cd846ddf598
+    parentBotId: 0cbb8046-5c42-f011-8779-002248e0b401
+    description: Esse tópico do sistema é disparado quando o agente recebe uma Atividade que indica o início de uma nova conversa. Se você não quiser que o agente inicie a conversa, desabilite esse tópico.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgc914032e
+    schemaName: cr6bd_estudandoCriandoAgenteDaDio10.topic.ConversationStart
+    dialog:
+      beginDialog:
+        kind: OnConversationStart
+        id: main
+        actions:
+          - kind: SendActivity
+            id: sendMessage_M0LuhV
+            activity:
+              text:
+                - Olá, eu sou {System.Bot.Name}, um assistente virtual. Só para que você esteja ciente, às vezes eu uso a IA para responder às suas perguntas. Se você forneceu um site durante a criação, tente me perguntar sobre ele! Em seguida, tente me dar um pouco mais de conhecimento ao configurar a IA generativa.
+              speak:
+                - Olá, e obrigado por ligar para o {System.Bot.Name}. Observe que algumas respostas são geradas por IA e pode ser necessário verificar sua exatidão. Como posso ajudar você hoje?
+
+  - kind: DialogComponent
+    version: 16586370
+    managedProperties:
+      isCustomizable: false
+      solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
+
+    auditInfo:
+      createdTimeUtc: 2025-06-05T22:27:59.0000000Z
+      modifiedTimeUtc: 2025-06-05T22:27:59.0000000Z
+      createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
+      modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
+
+    displayName: Redefinir conversa
+    id: 73a393a8-b06c-47a0-b839-26807a88cbbe
+    parentBotId: 0cbb8046-5c42-f011-8779-002248e0b401
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgc914032e
+    schemaName: cr6bd_estudandoCriandoAgenteDaDio10.topic.ResetConversation
     dialog:
       startBehavior: UseLatestPublishedContentAndCancelOtherTopics
       beginDialog:
@@ -479,26 +459,168 @@ components:
             id: cancelAllDialogs_12Gt21
 
   - kind: DialogComponent
-    version: 16400089
+    version: 16586559
     managedProperties:
       isCustomizable: false
       solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
 
     auditInfo:
-      createdTimeUtc: 2025-05-30T02:17:45.0000000Z
-      modifiedTimeUtc: 2025-05-30T02:17:45.0000000Z
+      createdTimeUtc: 2025-06-05T22:27:58.0000000Z
+      modifiedTimeUtc: 2025-06-06T00:02:54.0000000Z
+      createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
+      modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
+
+    displayName: Melhora da conversa
+    id: 82c3fca1-8195-4516-bf3d-271fb3093dff
+    parentBotId: 0cbb8046-5c42-f011-8779-002248e0b401
+    description: Crie respostas generativas de fontes de conhecimento.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgc914032e
+    schemaName: cr6bd_estudandoCriandoAgenteDaDio10.topic.Search
+    dialog:
+      beginDialog:
+        kind: OnUnknownIntent
+        id: main
+        priority: -1
+        actions:
+          - kind: SearchAndSummarizeContent
+            id: search-content
+            variable: Topic.Answer
+            userInput: =System.Activity.Text
+            moderationLevel: High
+            additionalInstructions: |-
+              Busca dados da  Microsoft Copilot Studio
+              com base na perguta do usuario:
+              {System.Activity.Text}
+            fileSearchDataSource:
+              searchFilesMode:
+                kind: SearchAllFiles
+
+            knowledgeSources:
+              kind: SearchAllKnowledgeSources
+
+            applyModelKnowledgeSetting: false
+
+          - kind: ConditionGroup
+            id: has-answer-conditions
+            conditions:
+              - id: has-answer
+                condition: =!IsBlank(Topic.Answer)
+                actions:
+                  - kind: EndDialog
+                    id: end-topic
+                    clearTopicQueue: true
+
+            elseActions:
+              - kind: SendActivity
+                id: sendActivity_OnI3I5
+                activity: |-
+                  Ola, {System.User.PrincipalName}
+                  
+                  Desculpe mais nao foi possivel encontra 
+                  a resposta que voce estava esperando.  
+                  Entrar em contato com (19)9879800
+                  ou renato065157@gmail.com
+
+  - kind: DialogComponent
+    version: 16586389
+    managedProperties:
+      isCustomizable: false
+      solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
+
+    auditInfo:
+      createdTimeUtc: 2025-06-05T22:28:00.0000000Z
+      modifiedTimeUtc: 2025-06-05T22:28:00.0000000Z
+      createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
+      modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
+
+    displayName: "Entrar "
+    id: 9ef1db72-bf16-49c5-af59-99526353d2af
+    parentBotId: 0cbb8046-5c42-f011-8779-002248e0b401
+    description: Esse tópico do sistema é disparado quando o agente precisa conectar o usuário ou exige que o usuário se conecte
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgc914032e
+    schemaName: cr6bd_estudandoCriandoAgenteDaDio10.topic.Signin
+    dialog:
+      beginDialog:
+        kind: OnSignIn
+        id: main
+        actions:
+          - kind: ConditionGroup
+            id: conditionGroup_ypjGKL
+            conditions:
+              - id: conditionItem_7XYIIR
+                condition: =System.SignInReason = SignInReason.SignInRequired
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_1jHUNO
+                    activity: Olá! Para poder ajudar você, será necessário que você se conecte.
+
+          - kind: OAuthInput
+            id: gOjhZA
+            title: Logon
+            text: Para continuar, faça logon
+
+  - kind: GptComponent
+    version: 16586394
+    managedProperties:
+      isCustomizable: false
+      solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
+
+    auditInfo:
+      createdTimeUtc: 2025-06-05T22:28:00.0000000Z
+      modifiedTimeUtc: 2025-06-05T22:28:00.0000000Z
+      createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
+      modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
+
+    displayName: Estudando Criando Agente da Dio1.0
+    id: 9fecd629-2fec-4366-a635-2bfc36383e87
+    parentBotId: 0cbb8046-5c42-f011-8779-002248e0b401
+    description: |-
+      Criando um Copilot com um fluxo de conversa personalizado no Microsoft Copilot Studio.
+      Aprenda a iniciar um copiloto do zero, customizar um tópico,
+      personalizar mensagens de erro e ajustar a qualidade das respostas utilizando GenAI. Ao final,
+      você terá um copiloto otimizado para oferecer interações mais precisas e eficientes.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgc914032e
+    schemaName: cr6bd_estudandoCriandoAgenteDaDio10.gpt.default
+    metadata:
+      instructions: |-
+        você e um agente chamado " Estudando Criando Agente da Dio" e vai agir de tom formal e em português,
+        para retorna informações relevantes da documentação oficial da Microsoft o Microsoft Copilot Studio
+        Ao retorna uma resposta para pergunta do usuário  você dever considerar:
+        - Buscar a melhor resposta da documentação
+        - Retorna a resposta apropriada, amigável e   de tom formal  
+        - Retorna uma ou mais citações da documentação  
+      gptCapabilities: {}
+
+  - kind: DialogComponent
+    version: 16586335
+    managedProperties:
+      isCustomizable: false
+      solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
+
+    auditInfo:
+      createdTimeUtc: 2025-06-05T22:27:58.0000000Z
+      modifiedTimeUtc: 2025-06-05T22:27:58.0000000Z
       createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
       modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
 
     displayName: Obrigado
-    id: 92f08b99-c83f-43b1-ab27-0e969ff8cb36
-    parentBotId: b9575c3f-fc3c-f011-8779-6045bd38a755
+    id: a4cc4aab-67a9-425c-8462-9ee8f7958186
+    parentBotId: 0cbb8046-5c42-f011-8779-002248e0b401
     description: Esse tópico é disparado quando o usuário agradece.
     shareContext: {}
     state: Active
     status: Active
     publisherUniqueName: DefaultPublisherorgc914032e
-    schemaName: cr6bd_projetoDioCopilot.topic.ThankYou
+    schemaName: cr6bd_estudandoCriandoAgenteDaDio10.topic.ThankYou
     dialog:
       beginDialog:
         kind: OnRecognizedIntent
@@ -520,68 +642,148 @@ components:
             activity: De nada.
 
   - kind: DialogComponent
-    version: 16400099
+    version: 16586360
     managedProperties:
       isCustomizable: false
       solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
 
     auditInfo:
-      createdTimeUtc: 2025-05-30T02:17:46.0000000Z
-      modifiedTimeUtc: 2025-05-30T02:17:46.0000000Z
+      createdTimeUtc: 2025-06-05T22:27:59.0000000Z
+      modifiedTimeUtc: 2025-06-05T22:27:59.0000000Z
       createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
       modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
 
-    displayName: Melhora da conversa
-    id: a8bf8a8b-b970-4023-a075-c33b8d8458e7
-    parentBotId: b9575c3f-fc3c-f011-8779-6045bd38a755
-    description: Crie respostas generativas de fontes de conhecimento.
+    displayName: Vários tópicos correspondentes
+    id: cbacfec9-52f1-4f48-86b9-32d7dc26a963
+    parentBotId: 0cbb8046-5c42-f011-8779-002248e0b401
+    description: Esse tópico do sistema é desencadeado quando o agente correlaciona vários Tópicos com a mensagem de entrada e precisa esclarecer qual deve ser disparado.
     shareContext: {}
     state: Active
     status: Active
     publisherUniqueName: DefaultPublisherorgc914032e
-    schemaName: cr6bd_projetoDioCopilot.topic.Search
+    schemaName: cr6bd_estudandoCriandoAgenteDaDio10.topic.MultipleTopicsMatched
     dialog:
       beginDialog:
-        kind: OnUnknownIntent
+        kind: OnSelectIntent
         id: main
-        priority: -1
+        triggerBehavior: Always
         actions:
-          - kind: SearchAndSummarizeContent
-            id: search-content
-            variable: Topic.Answer
-            userInput: =System.Activity.Text
+          - kind: SetVariable
+            id: setVariable_M6434i
+            variable: init:Topic.IntentOptions
+            value: =System.Recognizer.IntentOptions
+
+          - kind: SetTextVariable
+            id: setTextVariable_0
+            variable: Topic.NoneOfTheseDisplayName
+            value: Nenhuma dessas opções
+
+          - kind: EditTable
+            id: sendMessage_g5Ls09
+            changeType: Add
+            itemsVariable: Topic.IntentOptions
+            value: "={ DisplayName: Topic.NoneOfTheseDisplayName, TopicId: \"NoTopic\", TriggerId: \"NoTrigger\", Score: 1.0 }"
+
+          - kind: Question
+            id: question_zf2HhP
+            interruptionPolicy:
+              allowInterruption: false
+
+            alwaysPrompt: true
+            variable: System.Recognizer.SelectedIntent
+            prompt: "Para esclarecer, você quis dizer:"
+            entity:
+              kind: DynamicClosedListEntity
+              items: =Topic.IntentOptions
 
           - kind: ConditionGroup
-            id: has-answer-conditions
+            id: conditionGroup_60PuXb
             conditions:
-              - id: has-answer
-                condition: =!IsBlank(Topic.Answer)
+              - id: conditionItem_rs7GgM
+                condition: =System.Recognizer.SelectedIntent.TopicId = "NoTopic"
                 actions:
-                  - kind: EndDialog
-                    id: end-topic
-                    clearTopicQueue: true
+                  - kind: ReplaceDialog
+                    id: YZXRDb
+                    dialog: cr6bd_estudandoCriandoAgenteDaDio10.topic.Fallback
 
   - kind: DialogComponent
-    version: 16400094
+    version: 16586317
     managedProperties:
       isCustomizable: false
       solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
 
     auditInfo:
-      createdTimeUtc: 2025-05-30T02:17:46.0000000Z
-      modifiedTimeUtc: 2025-05-30T02:17:46.0000000Z
+      createdTimeUtc: 2025-06-05T22:27:47.0000000Z
+      modifiedTimeUtc: 2025-06-05T22:27:47.0000000Z
+      createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
+      modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
+
+    displayName: Recomeçar
+    id: cd91ea25-9e0d-442d-8219-43efa1415fe0
+    parentBotId: 0cbb8046-5c42-f011-8779-002248e0b401
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: DefaultPublisherorgc914032e
+    schemaName: cr6bd_estudandoCriandoAgenteDaDio10.topic.StartOver
+    dialog:
+      beginDialog:
+        kind: OnRecognizedIntent
+        id: main
+        intent:
+          displayName: Recomeçar
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - vamos começar novamente
+            - vamos começar de novo
+            - recomeçar
+            - começar novamente
+            - reiniciar
+
+        actions:
+          - kind: Question
+            id: question_zguoVV
+            alwaysPrompt: false
+            variable: init:Topic.Confirm
+            prompt: Tem certeza de que deseja reiniciar a conversa?
+            entity: BooleanPrebuiltEntity
+
+          - kind: ConditionGroup
+            id: conditionGroup_lvx2zV
+            conditions:
+              - id: conditionItem_sVQtHa
+                condition: =Topic.Confirm = true
+                actions:
+                  - kind: BeginDialog
+                    id: 0YKYsy
+                    dialog: cr6bd_estudandoCriandoAgenteDaDio10.topic.ResetConversation
+
+            elseActions:
+              - kind: SendActivity
+                id: sendMessage_lk2CyQ
+                activity: OK. Vamos continuar.
+
+  - kind: DialogComponent
+    version: 16586340
+    managedProperties:
+      isCustomizable: false
+      solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
+
+    auditInfo:
+      createdTimeUtc: 2025-06-05T22:27:58.0000000Z
+      modifiedTimeUtc: 2025-06-05T22:27:58.0000000Z
       createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
       modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
 
     displayName: Se houver erro
-    id: aa2cb814-3e74-4eff-9c99-686d53be9b60
-    parentBotId: b9575c3f-fc3c-f011-8779-6045bd38a755
+    id: cfb61080-871f-4cb0-a4d0-140f0bb2a3f3
+    parentBotId: 0cbb8046-5c42-f011-8779-002248e0b401
     description: Esse tópico do sistema é desencadeado quando o agente encontra um erro. Ao usar o painel de chat de teste, a descrição completa do erro é exibida.
     shareContext: {}
     state: Active
     status: Active
     publisherUniqueName: DefaultPublisherorgc914032e
-    schemaName: cr6bd_projetoDioCopilot.topic.OnError
+    schemaName: cr6bd_estudandoCriandoAgenteDaDio10.topic.OnError
     dialog:
       startBehavior: UseLatestPublishedContentAndCancelOtherTopics
       beginDialog:
@@ -628,149 +830,44 @@ components:
           - kind: CancelAllDialogs
             id: NW7NyY
 
-  - kind: GptComponent
-    version: 16400149
-    managedProperties:
-      isCustomizable: false
-      solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
-
-    auditInfo:
-      createdTimeUtc: 2025-05-30T02:17:48.0000000Z
-      modifiedTimeUtc: 2025-05-30T02:17:48.0000000Z
-      createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
-      modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
-
-    displayName: ProjetoDio_copilot
-    id: bb570b89-b15a-442c-a144-e8d13f4711e1
-    parentBotId: b9575c3f-fc3c-f011-8779-6045bd38a755
-    description: Este copilot vai ser responsável por responder todas as duvidas de IA.
-    shareContext: {}
-    state: Active
-    status: Active
-    publisherUniqueName: DefaultPublisherorgc914032e
-    schemaName: cr6bd_projetoDioCopilot.gpt.default
-    metadata:
-      instructions:
-      gptCapabilities: {}
-
   - kind: DialogComponent
-    version: 16400119
+    version: 16586495
     managedProperties:
       isCustomizable: false
       solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
 
     auditInfo:
-      createdTimeUtc: 2025-05-30T02:17:47.0000000Z
-      modifiedTimeUtc: 2025-05-30T02:17:47.0000000Z
+      createdTimeUtc: 2025-06-05T22:50:21.0000000Z
+      modifiedTimeUtc: 2025-06-05T22:50:21.0000000Z
       createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
       modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
 
-    displayName: Saudação
-    id: bba12ccd-f086-4e66-9c05-130ba54f44eb
-    parentBotId: b9575c3f-fc3c-f011-8779-6045bd38a755
-    description: Esse tópico é disparado quando o usuário cumprimenta o agente.
+    displayName: main topicos
+    id: f3be51d0-077a-4297-a072-adcdb34c59c2
+    parentBotId: 0cbb8046-5c42-f011-8779-002248e0b401
     shareContext: {}
     state: Active
     status: Active
     publisherUniqueName: DefaultPublisherorgc914032e
-    schemaName: cr6bd_projetoDioCopilot.topic.Greeting
+    schemaName: cr6bd_estudandoCriandoAgenteDaDio10.topic.maintopicos
     dialog:
       beginDialog:
         kind: OnRecognizedIntent
         id: main
         intent:
-          displayName: Saudação
-          includeInOnSelectIntent: false
           triggerQueries:
-            - Boa tarde
-            - Bom dia
-            - Olá
-            - Ei
-            - Oi
+            - o que e Microsoft Copilot Studio?
+            - para pra que serve Microsoft Copilot Studio?
+            - Busca informações sobre Microsoft Copilot Studio?
 
         actions:
+          - kind: SearchAndSummarizeContent
+            id: C3i1d9
+            userInput: =System.Activity.Text
+
           - kind: SendActivity
-            id: sendMessage_abmysR
-            activity:
-              text:
-                - Olá, como posso ajudar hoje?
-              speak:
-                - Olá, <break strength="medium" />. Como posso ajudar?
+            id: sendActivity_YoBZNL
+            activity: Topico de Microsoft Copilot Studio encerrado!
 
-          - kind: CancelAllDialogs
-            id: cancelAllDialogs_01At22
-
-  - kind: DialogComponent
-    version: 16400139
-    managedProperties:
-      isCustomizable: false
-      solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
-
-    auditInfo:
-      createdTimeUtc: 2025-05-30T02:17:48.0000000Z
-      modifiedTimeUtc: 2025-05-30T02:17:48.0000000Z
-      createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
-      modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
-
-    displayName: Início da conversa
-    id: cf566acf-08f9-480e-8263-bc838a8f9ef6
-    parentBotId: b9575c3f-fc3c-f011-8779-6045bd38a755
-    description: Esse tópico do sistema é disparado quando o agente recebe uma Atividade que indica o início de uma nova conversa. Se você não quiser que o agente inicie a conversa, desabilite esse tópico.
-    shareContext: {}
-    state: Active
-    status: Active
-    publisherUniqueName: DefaultPublisherorgc914032e
-    schemaName: cr6bd_projetoDioCopilot.topic.ConversationStart
-    dialog:
-      beginDialog:
-        kind: OnConversationStart
-        id: main
-        actions:
-          - kind: SendActivity
-            id: sendMessage_M0LuhV
-            activity:
-              text:
-                - Olá, eu sou {System.Bot.Name}, um assistente virtual. Só para que você esteja ciente, às vezes eu uso a IA para responder às suas perguntas. Se você forneceu um site durante a criação, tente me perguntar sobre ele! Em seguida, tente me dar um pouco mais de conhecimento ao configurar a IA generativa.
-              speak:
-                - Olá, e obrigado por ligar para o {System.Bot.Name}. Observe que algumas respostas são geradas por IA e pode ser necessário verificar sua exatidão. Como posso ajudar você hoje?
-
-  - kind: DialogComponent
-    version: 16400144
-    managedProperties:
-      isCustomizable: false
-      solutionId: fd140aae-4df4-11dd-bd17-0019b9312238
-
-    auditInfo:
-      createdTimeUtc: 2025-05-30T02:17:48.0000000Z
-      modifiedTimeUtc: 2025-05-30T02:17:48.0000000Z
-      createdBy: fe753af4-1a5c-46bb-be4f-13eac608540d
-      modifiedBy: fe753af4-1a5c-46bb-be4f-13eac608540d
-
-    displayName: Entrar 
-    id: e974520c-9718-4cb1-9cb9-676799e153d8
-    parentBotId: b9575c3f-fc3c-f011-8779-6045bd38a755
-    description: Esse tópico do sistema é disparado quando o agente precisa conectar o usuário ou exige que o usuário se conecte
-    shareContext: {}
-    state: Active
-    status: Active
-    publisherUniqueName: DefaultPublisherorgc914032e
-    schemaName: cr6bd_projetoDioCopilot.topic.Signin
-    dialog:
-      beginDialog:
-        kind: OnSignIn
-        id: main
-        actions:
-          - kind: ConditionGroup
-            id: conditionGroup_ypjGKL
-            conditions:
-              - id: conditionItem_7XYIIR
-                condition: =System.SignInReason = SignInReason.SignInRequired
-                actions:
-                  - kind: SendActivity
-                    id: sendMessage_1jHUNO
-                    activity: Olá! Para poder ajudar você, será necessário que você se conecte.
-
-          - kind: OAuthInput
-            id: gOjhZA
-            title: Logon
-            text: Para continuar, faça logon
+      inputType: {}
+      outputType: {}
